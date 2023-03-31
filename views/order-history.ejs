@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%-include('__externallink.ejs')%>
+    <%-include('externalink.ejs')%>
+    <%-include('__externalscriptlink.ejs')%>
+    <%-include('header.ejs')%>
+            
+            <head>
+               <style>
+                  body {
+                     color: white;
+                     background-color: white;
+                  }
+
+                  .cartbutton {
+                     float: right;
+                     margin-top: 263px;
+                     width: 50%;
+                  }
+
+                  .container {
+                     margin-top: 100px;
+                  }
+
+                  .project {
+                     margin-top: -20px;
+                  }
+
+                  .hed {
+                     background-color: cadetblue;
+
+                     box-shadow: 0px 0px 5px black;
+                  }
+
+                  .hed1 {
+                     font-weight: bold;
+                     size: 10px;
+                  }
+
+                  .tbody {
+                     box-shadow: 0px 0px 5px black;
+                  }
+               </style>
+            </head>
+
+            <body>
+               <body class="main-layout">
+                  <div id="project" class="project">
+                     <div class="container">
+                        <table class="table">
+                           <thead class="hed">
+                              <tr class="hed1">
+                                 <th>OrderId</th>
+                                 <th>Date</th>
+                                 <th>Bill Amount</th>
+                                 <th>Contact Person</th>
+                                 <th>Address</th>
+                                 <th>Status</th>
+                              </tr>
+                           </thead>
+                           <tbody class="tbody">
+                              <%orderHistory.map((order, index)=>{%>
+                                 <tr>
+                                    <td> 
+                                       <a href="/order/myorder/<%=order.id%>"><%=order.id%></a>
+                                    </td>
+                                    <td>
+                                       <%=order.date%>
+                                    </td>
+                                    <td>
+                                       <%=order.billAmount%>
+                                    </td>
+                                    <td>
+                                       <%=order.contactPerson%>
+                                    </td>
+                                    <td>
+                                       <%=order.deliveryAddress%>
+                                    </td>
+                                    <td>
+                                       <%=order.status%>
+                                    </td>                                  
+                                 </tr>
+                                 <%})%>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>                
+               </body>
+
+</html>
+<%- include('footer.ejs')%>
+<%- include('externalscript.ejs')%>
+
+
+
+  

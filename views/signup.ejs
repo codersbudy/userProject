@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <title>Shoes mall</title>
+    <%- include('externalink.ejs')%>
+        <style>
+            .login {
+                position: absolute;
+                top: 60%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 10px;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+                height: 530px;
+                /* border: 1px solid grey; */
+
+            }
+
+            .logoImage {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .signin:hover {
+                color: black;
+                cursor: pointer;
+            }
+
+            .box {
+                border: 2px solid;
+                height: 650px;
+
+            }
+            body{
+                background-image: url(https://wallpapercave.com/wp/atadv0w.jpg);
+                background-size: cover;
+            }
+        </style>
+</head>
+
+<body>
+    <div class="container" style=" position: relative ;width: 100%; height: 100vh;" >
+        <!-- <div class="box"> -->
+        <div class="logoImage">
+           
+            <h1 style="font-size: 40px; font-weight: bold; color:white; ">E-Shop</h1>
+            <h1>..</h1>
+            <h1 style="font-size: 40px; font-weight: bold; color:white; ">User</h1>
+            <h1>..</h1>
+            <h1 style="font-size: 40px; font-weight: bold; color:white; ">signUp</h1>
+        </div>
+        <div class="row ">
+            <div class="login col-md-4 col-lg-4 mt-4 ">
+                <% if(message){ %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Error :</strong>
+                        <%=message%> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <% } %>
+                        <div class="text-danger" style="font-size: 20px ; font-weight: bold;">Create Account</div>
+
+                        <form method="post" action="/signup">
+                            <div class="wrapper">
+                                <div class="form-group mt-3">
+                                    <label style="font-weight: bold;">Your Name</label>
+                                    <input style="border-radius: 20px;" type="text" name="username" class="form-control" />
+                                </div>
+                                <div class="form-group ">
+                                    <label style="font-weight: bold;">Email</label>
+                                    <input style="border-radius: 20px;" type="email" name="email" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Password</label>
+                                    <input style="border-radius: 20px;" type="password" name="password" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Mobile No</label>
+                                    <input style="border-radius: 20px;" type="text" name="contact" class="form-control" />
+                                </div>
+                                <div class="form-group " style="text-align: center;">
+                                    <button style="font-weight: bold; border-radius: 20px;" type="submit" class="btn btn-danger">SIGNUP</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div style="display: flex;justify-content: end;margin-bottom: 30px;">
+                                <a href="/signIn" type="" style="color: black;">Already have an account?
+                                    <button style="font-weight: bold; border-radius: 20px;" type="button" class="btn btn-link  text-danger signin">SignIn</button>
+                                </a>
+                            </div>
+                        </form>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+</body>
+
+</html>

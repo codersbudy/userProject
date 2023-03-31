@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <%-include('externalink.ejs')%>
+  <%- include('__externallink.ejs')%>
+  <%- include('header.ejs')%>
+    <style>
+      body {
+        color: white;
+        background-color: white;
+        width: 1350px;
+      }
+
+      .card-img-top:hover {
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 6px 0px,
+          rgba(0, 0, 0, 0.1) 0px 2px 15px 0px;
+        transform: scale(1.1);
+        background: #ff800a;
+        z-index: 2;
+        box-shadow: 2px 2px 2px #000;
+      }
+
+      .card-img-top {
+        height: 120px;
+        border-radius: 50%;
+        float: left;
+        margin: 20px;
+        overflow: hidden;
+      }
+
+      .cartbutton {
+        float: right;
+        margin-top: 263px;
+        width: 50%;
+      }
+
+
+      body {
+        font-family: 'Lato', sans-serif;
+        padding-top: 50px;
+      }
+
+      .starter-template {
+        padding: 80px 15px;
+        text-align: center;
+      }
+
+      span.lower-text {
+        color: #ffc300;
+        font-size: 25px;
+        display: block;
+      }
+
+      .hover-div {
+        padding: 20px 20px;
+        text-align: center;
+        min-height: 350px;
+        border: 1px black;
+      }
+
+      .hover-div {
+        border-top: 1px solid #f8f8f8;
+        background: #f8f8f8;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        margin: 10px 0px;
+        border: 1px black;
+      }
+
+      .hover-div:hover {
+        -webkit-transform: translateY(-20px);
+        -ms-transform: translateY(-20px);
+        transform: translateY(-20px);
+        box-shadow: 1px 22px 43px rgba(0, 0, 0, 0.32);
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- Start Top Search -->
+    <div class="top-search">
+      <div class="container">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search">
+          <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+        </div>
+      </div>
+    </div>
+    <!-- End Top Search -->
+
+    <!-- Start Slider -->
+    <!-- Start Slider -->
+    <div style="width: 100%;" id="slides-shop" class="cover-slides">
+      <ul class="slides-container">
+        <li class="text-left">
+          <img src="images/banner-20.jpg" alt="">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <h1 class="m-b-20"><strong>Welcome To <br> E-Shop</strong></h1>
+                <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see
+                  any changes in performance over time.</p>
+                <!-- <p><a class="btn hvr-hover" href="#">Shop New</a></p> -->
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="text-center">
+          <img src="images/banner-19.jpg" alt="">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <h1 class="m-b-20"><strong>Welcome To <br> E-Shop</strong></h1>
+                <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see
+                  any changes in performance over time.</p>
+
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="text-right">
+          <img src="images/banner-18.jpg" alt="">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <h1 class="m-b-20"><strong>Welcome To <br> E-shop</strong></h1>
+                <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see
+                  any changes in performance over time.</p>
+
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+
+    <!-- Start Categories  -->
+
+    <!-- Start Instagram Feed  -->
+    <div style="height: 50px;" class="instagram-box">
+
+      <div class="main-instagram owl-carousel owl-theme">
+        <%categoryList.map((category,index)=>{%>
+          <div class="item">
+            <div class="ins-inner-box">
+              <h3 style="color:black; text-transform: capitalize; font-size:18px;">
+                <%=category.categoryName%>
+              </h3>
+            </div>
+          </div>
+          <%})%>
+      </div>
+    </div>
+    <!-- End Instagram Feed  -->
+
+    <!-- start -->
+    <div class="container">
+      <h2 class="text-center text-bold"></h2>
+      <div class="starter-template">
+        <div class="row" id="product-display">
+          <%productList.map((product,index)=>{%>
+            <div class="col-sm-4">
+              <section class="hover-div">
+                <img onclick="" src="<%=product.thumbnail%>" width="250px;" height="250px">
+                <div class="hover-div_inner">
+                  <h5 style="font-weight: bold;" class="text-center mt-2">
+                    <%=product.title.substring(0,8)%>
+                  </h5>
+                  <p class="text-center text-dark" style="font-size: 15px; font-weight: bold;">
+                    Price
+                    <%if(product.discountPercentage){%>
+                      <del class="text-dark">
+                        <%=product.price%>
+                      </del>
+                      <span class="text-dark"><%=Math.round(product.price-((product.price*product.discountPercentage)
+                          /100))%> Rs.</span>
+                      <%}else{%>
+                        <span class="text-dark">
+                          <%=product.price%> Rs.
+                        </span>
+                        <%}%>
+                  </p>
+                  <div class="col-md-8">
+                  <%if(currentUser){%>
+                    <a onclick="addInToCart('<%=currentUser.id*1+1240%>','<%=product.id*1 + 2342%>')">
+                      <button style=" margin-left: 8px;  height: 36px;border-radius: 10%; width: 28%; background-color: white; margin-top: 15px;  font: size 2em; color:black " class="fas fa-shopping-cart border border-1 text-center "></button>
+
+                    </a>
+                    <a onclick="addInLikeToCart('<%=currentUser.id*1+1240%>','<%=product.id*1 + 2342%>')">
+                          
+                      <button style="margin-left: 5px; height: 36px; background-color: white; margin-top: -3px;  font: size 2em; color:red " class="fas fa-heart btn border border-1 "></button>
+                      
+                    </a>
+                    <%}else{%>
+                      <a href="/cart/add-to-cart/''/''">
+                        <button style=" margin-left: 8px;  height: 36px;border-radius: 10%; width: 28%; background-color: white; margin-top: 15px;  font: size 2em; color:black " class="fas fa-shopping-cart border border-1 text-center "></button>
+
+                      </a>
+                      <a href="/cart/addLike/''/''">
+                        <button style="margin-left: 5px; height: 36px; background-color: white; margin-top: -3px;  font: size 2em; color:red " class="fas fa-heart btn border border-1 "></button>
+                      </a>
+                      <%}%>
+                     
+                        <a href="/views/<%=product.id%>">
+                          <button style="margin-left: 150px; height: 36px; margin-top: -67px; background-color: white;  font: size 2em; color:black " class=" fa fa-arrow-circle-right btn border border-1 "></button>
+                        </a>
+                      </div>
+                </div>
+              </section>
+            </div>
+            <%})%>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+
+    <!-- Start Blog  -->
+    <%- include('footer.ejs')%>
+      <%- include('externalscript.ejs')%>
+        <script>
+          function addInToCart(userId, productId) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/cart/add-to-cart/" + userId + "/" + productId, true);
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+              if (xhttp.readyState == 4) {
+                let data = JSON.parse(xhttp.responseText);
+                window.alert(data.message);
+              }
+            }
+          }
+         
+         function addInLikeToCart(userId, productId){
+           var xhttp = new XMLHttpRequest();
+           xhttp.open("GET","/cart/addLIke/"+userId+"/"+productId,true);
+           xhttp.send();
+           xhttp.onreadystatechange = function(){
+             if(xhttp.readyState == 4){
+               let data = JSON.parse(xhttp.responseText);
+               window.alert(data.message);
+             }
+           }
+         }
+     
+        </script>
+
+</body>
+
+</html>

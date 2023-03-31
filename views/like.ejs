@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('__externallink.ejs')%>
+    <%- include('header.ejs')%>
+
+      <style>
+        .container-fluid {
+          margin-top: 50px;
+        }
+
+        .starter-template {
+          padding: 80px 15px;
+          text-align: center;
+        }
+
+        span.lower-text {
+          color: #ffc300;
+          font-size: 25px;
+          display: block;
+        }
+
+        .hover-div {
+          padding: 20px 20px;
+          text-align: center;
+          min-height: 350px;
+          border: 1px black;
+        }
+
+        .hover-div {
+          border-top: 1px solid #f8f8f8;
+          background: #f8f8f8;
+          box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+          margin: 10px 0px;
+          border: 1px black;
+        }
+
+        .hover-div:hover {
+          -webkit-transform: translateY(-20px);
+          -ms-transform: translateY(-20px);
+          transform: translateY(-20px);
+          box-shadow: 1px 22px 43px rgba(0, 0, 0, 0.32);
+          cursor: pointer;
+          border-radius: 5px;
+        }
+      </style>
+
+</head>
+<!-- body -->
+
+<body class="main-layout">
+
+
+
+  <div class="col-md-10 mb-6 ">
+    <div class="container">
+      <div class="starter-template">
+        <div id="product-display" class="row">
+          <%cartItem.map((product,index)=>{%>
+
+            <div class="col-sm-4">
+              <section class="hover-div">
+                <img onclick="" src="<%=product.thumbnail%>" width="250px;" height="250px">
+                <div class="hover-div_inner">
+                  <h5 style="font-weight: bold;" class="text-center mt-2">
+                    <%=product.title.substring(0,8)%>
+                  </h5>
+
+
+                  <p class="text-center text-dark" style="font-size: 15px; font-weight: bold;">
+                    Price
+                    <%if(product.discountPercentage){%>
+                      <del class="text-dark">
+                        <%=product.price%>
+                      </del>
+                      <span class="text-dark"><%=Math.round(product.price-((product.price*product.discountPercentage)
+                          /100))%> Rs.</span>
+                      <%}else{%>
+                        <span class="text-dark">
+                          <%=product.price%> Rs.
+                        </span>
+
+                        <%}%>
+                  </p>
+                  <a href="/like/delete/<%=index%>">
+                    <button onclick="unlike()" style="margin-left: 7px; height: 33px;  font: size 2em; color:red "
+                      class="fas fa-cut btn border border-0 "></button>
+                  </a>
+                  <%if(currentUser){%>
+                    <a onclick="addInToCart('<%=currentUser.id*1+1240%>','<%=product.id*1 + 2342%>')">
+                      <button style="font: bold; height: 30px; color: black;"
+                        class="fa fa-shopping-cart border border-0"></button>
+                    </a>
+                    <a onclick="addInLikeToCart('<%=currentUser.id*1+1240%>','<%=product.id*1 + 2342%>')">
+
+
+                      <%}else{%>
+
+
+                        <%}%>
+                          <a href="/views/<%=product.id%>">
+                            <button style="margin-left: 7px; height: 33px;  font: size 2em; color:black "
+                              class=" fa fa-arrow-circle-right btn border border-0 "></button>
+                          </a>
+                </div>
+              </section>
+            </div>
+            <%})%>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  </div>
+
+  </div>
+
+  <%-include('footer.ejs')%>
+
+    <%-include('__externalscriptlink.ejs')%>
+
+      <script>
+        function addInToCart(userId, productId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "/cart/like/" + userId + "/" + productId, true);
+          xhttp.send();
+          xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4) {
+              let data = JSON.parse(xhttp.responseText);
+              window.alert(data.message);
+            }
+          }
+        }
+        function unlike() {
+          alert("Remove from favirate")
+        }
+
+        function addInToCart(userId, productId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "/cart/add-to-cart/" + userId + "/" + productId, true);
+          xhttp.send();
+          xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4) {
+              let data = JSON.parse(xhttp.responseText);
+              window.alert(data.message);
+            }
+          }
+        }
+      </script>
+</body>
+
+</html>

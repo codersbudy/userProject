@@ -1,0 +1,116 @@
+<header style="size: 20px;" class="main-header">
+   <!-- Start Navigation -->
+   <nav style="background-color:transparent" class="navbar navbar-expand-md navbar-default bootsnav">
+      <div class="container">
+         <!-- Start Header Navigation -->
+         <div class="navbar-header">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+               aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fa fa-bars"></i>
+            </button>
+            <% let email=currentUser ? currentUser.email : "" ; %>
+
+
+              
+               <a class="navbar-brand">
+                  <h1
+                     style="text-shadow: black ; color: black; font-style:italic; margin-top: 15px;margin-left: -40px;  font-weight: bold ; font-size: 40px;">
+                     E-Shop</h1>
+               </a>
+         </div>
+
+         <!-- End Header Navigation -->
+
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul  class="nav navbar-nav ml-auto " data-in="fadeInDown" data-out="fadeOutUp">
+               <li class="nav-item active"><a style="color: black; " class="nav-link" href="/">Home</a></li>
+               <li class="nav-item"> <a style="color: black;" class="nav-link" href="/product/all">Products</a></li>
+               <% if(!currentUser){%>
+                  <li class="nav-item"><a style="color: black;" class="nav-link" href="/signIn">SignIn</a></li>
+                  <li class="nav-item"><a style="color: black;" class="nav-link" href="/signUp">SignUp</a></li>
+                  <%}else{%>
+                     
+                     <li class="nav-item"><a style="color: black;" class="nav-link" href="/signout">SignOut</a> </li>
+                     <%}%>
+            </ul>
+           
+              <div>
+
+               <a href="/cart/viewcart">
+                  <li style="border-radius: 20px; font-weight: bold; color: black; margin-right: 7px; " class="">ViewCart</li>
+               </a>
+              
+            </div>
+            <a href="/cart/like">
+               <li style="border-radius: 20px; font-weight: bold; margin-left: 20px; color: black; " class="">Likes</li>
+            </a>
+            
+         </div>
+         <!-- /.navbar-collapse -->
+         <div>
+            <%if(currentUser){%>
+               <a href="/order/history"><li style="border-radius:  20px; margin-left: 23px; color: black; font-weight: bold;" class="">Orders</li></a> 
+              <%}%> 
+         </div>
+         <!-- Start Atribute Navigation -->
+         <div class="col-md-4">
+            <div style="margin-top: -40px; margin-left: 200px;">
+               <h6 style="margin-top: -50px; color:black; font-weight: bold;"  class=" ">
+                  <%= email%>
+               </h6>
+            </div>
+            <div class="search">
+               <form>
+                  <input
+                     style="border-radius: 20px; margin-top: 20px; height: 20px; background-color:gainsboro; box-shadow: 1px 1px 3px black; margin-left: 200px; border-color: black; "
+                     onkeyup="searchProduct(this.value)" class="form_sea border border-0 " type="text"
+                     placeholder="Search " name="search"><i class="bi bi-search"></i>
+               </form>
+            </div>
+         </div>
+         <!-- End Atribute Navigation -->
+      </div>
+      <!-- Start Side Menu -->
+   </nav>
+   <!-- End Navigation -->
+</header>
+<script>
+   function searchProduct(keyword) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "/product/product-search/" + keyword, true);
+      xhttp.send();
+      xhttp.onreadystatechange = function () {
+         if (xhttp.readyState == 4) {
+            let data = xhttp.responseText;
+            data = JSON.parse(data);
+            let productView = "";
+            for (let product of data.productList) {
+               let priceString = '';
+               if (product.discountPercentage) {
+                  priceString = ' <del class="text-danger">' + product.price + '</del>' +
+                     '<span class="text-success">' + Math.round(product.price - ((product.price * product.discountPercentage) / 100)) + ' Rs.</span>';
+               }
+               else {
+                  priceString = '<span class="text-success">' + product.price + ' Rs.</span>'
+               }
+               productView = productView + '<div style="height: 450px;" class="col-md-3 p-3">' +
+                  '<div style=" box-shadow: 5px 5px 5px;">' +
+                  '<img src="' + product.thumbnail + '" style="width:100%; height: 200px;"/>' +
+                  '<h3 class="text-center mt-2">' + product.title.substring(0, 20) + '</h3>' +
+                  '<p class="text-center" style="font-size: 20px;">' +
+                  'Price :' + priceString +
+                  '</p>' +
+                  '<h3 style="cursor:pointer;" class="text-center mt-2 mb-3 text-primary">View description</h3>' +
+                  '<div class="text-center">' +
+
+                  '</div>' +
+                  '</div>' +
+                  '</div>';
+            }
+            document.getElementById("product-display").innerHTML = productView;
+         }
+      }
+   }
+</script>
